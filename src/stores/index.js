@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import Api from "../api";
 
 export const useStore = defineStore("main", {
   state: () => {
@@ -8,6 +9,7 @@ export const useStore = defineStore("main", {
     const isOpenModal = ref(false);
     const selectFunctionType = ref("");
     const targetProduct = ref({});
+    const adminProductList = ref([]);
 
     const api_path = import.meta.env.VITE_API_PATH;
 
@@ -37,12 +39,29 @@ export const useStore = defineStore("main", {
       isOpenModal.value = !isOpenModal.value;
     }
 
+    function handlerAdminGetProducts() {
+      const data = {
+        method: "get",
+        url: `api/${api_path}/admin/products/all`,
+        token: tokenStore.value,
+      };
+      tokenStore.value &&
+        Api(data)
+          .then((res) => {
+            adminProductList.value = res.data.products;
+          })
+          .catch((err) => {
+            console.dir(err);
+          });
+    }
+
     return {
       api_path,
       tokenStore,
       isOpenModal,
       isAuthenticated,
       targetProduct,
+      adminProductList,
       selectFunctionType,
       handlerSetToken,
       handlerIsLogout,
@@ -50,6 +69,7 @@ export const useStore = defineStore("main", {
       handlerGetCookie,
       handlerClearCookie,
       handlerModalControl,
+      handlerAdminGetProducts,
     };
   },
 });

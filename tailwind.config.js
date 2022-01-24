@@ -1,3 +1,5 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
@@ -5,6 +7,9 @@ module.exports = {
       container: {
         center: true,
         padding: "0.9375rem",
+      },
+      fontFamily: {
+        sans: ["Noto Sans TC", ...fontFamily.sans],
       },
     },
   },

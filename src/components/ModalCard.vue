@@ -1,10 +1,11 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "../stores";
-import ProductEditor from "./ProductEditor.vue";
 import DetailContent from "./DetailContent.vue";
+import ProductEditor from "./ProductEditor.vue";
+import ProductCreate from "./ProductCreate.vue";
 export default {
-  components: { ProductEditor, DetailContent },
+  components: { DetailContent, ProductEditor, ProductCreate },
   setup() {
     const store = useStore();
     const { handlerModalControl } = store;
@@ -24,12 +25,15 @@ export default {
   >
     <div class="flex justify-between items-center">
       <h1 class="text-2xl font-medium pl-4">
+        產品 -
         {{
           selectFunctionType === "getDetail"
-            ? "產品 - 內容細節"
+            ? "內容細節"
             : selectFunctionType === "productEdit"
-            ? "產品 - 內容編輯"
-            : "產品 - 項刪除"
+            ? "內容編輯"
+            : selectFunctionType === "productDelete"
+            ? "刪除品項"
+            : "新增品項"
         }}
       </h1>
       <button
@@ -51,5 +55,6 @@ export default {
     </div>
     <DetailContent v-if="selectFunctionType === 'getDetail'" />
     <ProductEditor v-if="selectFunctionType === 'productEdit'" />
+    <ProductCreate v-if="selectFunctionType === 'productCreate'" />
   </section>
 </template>
