@@ -8,7 +8,7 @@ import Modal from "../components/Modal.vue";
 import ModalCard from "../components/ModalCard.vue";
 import ProductEditor from "../components/ProductEditor.vue";
 export default {
-  components: { ProductsTableVue, Modal, ModalCard: ModalCard, ProductEditor },
+  components: { ProductsTableVue, Modal, ModalCard, ProductEditor },
   setup() {
     const store = useStore();
 

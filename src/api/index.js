@@ -22,3 +22,27 @@ export function Api({ method, url, data, token }) {
 }
 
 export default Api;
+
+const imgurUrl = "https://api.imgur.com/3/";
+
+const clientId = import.meta.env.VITE_IMGUR_CLIENT_ID;
+
+export const uploadImg = (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  return axios.post(`${imgurUrl}upload`, formData, {
+    headers: {
+      Authorization: `Client-ID ${clientId}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const getImg = (id) => {
+  return axios.get(`${imgurUrl}image/${id}`, {
+    headers: {
+      Authorization: `Client-ID ${clientId}`,
+    },
+  });
+};

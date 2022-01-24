@@ -3,14 +3,22 @@ import Api from "../api";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "../stores";
+import Modal from "../components/Modal.vue";
 
 export default {
+  components: { Modal },
   setup() {
     const userName = ref("");
     const userPassword = ref("");
     const store = useStore();
-    const { handlerIsLogin, handlerSetToken, handlerGetCookie } = store;
+    const {
+      handlerIsLogin,
+      handlerSetToken,
+      handlerGetCookie,
+      handlerModalControl,
+    } = store;
     const router = useRouter();
+    const loginErrorMessage = ref("");
 
     function handlerSubmit(e) {
       e.preventDefault();
@@ -37,6 +45,8 @@ export default {
         })
         .catch((err) => {
           console.dir(err);
+          loginErrorMessage.value = err.response.data.message;
+          handlerModalControl();
         });
     }
 
@@ -49,6 +59,8 @@ export default {
       userName,
       userPassword,
       handlerSubmit,
+      handlerModalControl,
+      loginErrorMessage,
     };
   },
 };
@@ -91,5 +103,32 @@ export default {
         </button>
       </form>
     </div>
+    <Modal>
+      <section
+        class="bg-white rounded-md shadow-md p-4 transition-all duration-500 ease-in-out translate-y-16"
+      >
+        <div class="flex justify-between items-center">
+          <h1 class="text-2xl font-medium pl-4">登入失敗</h1>
+          <button
+            type="button"
+            class="text-rose-500 p-4 hover:text-rose-700"
+            @click="handlerModalControl"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              class="bi bi-x h-8 w-8"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+          </button>
+        </div>
+        <h2>請確認您的帳號密碼</h2>
+        <p>{{ loginErrorMessage }}</p>
+      </section>
+    </Modal>
   </main>
 </template>

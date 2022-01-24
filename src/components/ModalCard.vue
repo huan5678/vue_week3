@@ -4,8 +4,9 @@ import { useStore } from "../stores";
 import DetailContent from "./DetailContent.vue";
 import ProductEditor from "./ProductEditor.vue";
 import ProductCreate from "./ProductCreate.vue";
+import ProductDelete from "./ProductDelete.vue";
 export default {
-  components: { DetailContent, ProductEditor, ProductCreate },
+  components: { DetailContent, ProductEditor, ProductCreate, ProductDelete },
   setup() {
     const store = useStore();
     const { handlerModalControl } = store;
@@ -56,5 +57,6 @@ export default {
     <DetailContent v-if="selectFunctionType === 'getDetail'" />
     <ProductEditor v-if="selectFunctionType === 'productEdit'" />
     <ProductCreate v-if="selectFunctionType === 'productCreate'" />
+    <ProductDelete v-if="selectFunctionType === 'productDelete'" />
   </section>
 </template>
