@@ -21,7 +21,7 @@ export const uploadImg = (file) => {
   const formData = new FormData();
   formData.append("image", file);
 
-  return axios.post(`${imgurUrl}upload`, formData, {
+  return axios.post(`${imgurUrl}image`, formData, {
     headers: {
       // Authorization: `Bearer ${imgurClientSecret}`,
       // "Content-Type": "multipart/form-data",

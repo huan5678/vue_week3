@@ -24,13 +24,11 @@ export default {
       ],
     });
 
-    watchEffect(() => {
-      productData.value;
-    });
-
-    const uploadFile = ref("uploadFile");
-
-    function handlerProductEdit() {
+    function handlerProductCreate() {
+      productData.value.price =
+        0 && (productData.value.price = productData.value.origin_price);
+      productData.value.origin_price =
+        0 && (productData.value.origin_price = productData.value.price);
       const data = {
         method: "post",
         url: `api/${store.api_path}/admin/product/${productData.value.id}`,
@@ -64,16 +62,34 @@ export default {
         });
     }
 
+    const mainImageFile = ref("mainImageFile");
+
+    const subImagesFile = ref("subImagesFile");
+
     function handlerClearFiles() {
-      uploadFile.value.value = "";
+      mainImageFile.value = "";
     }
 
-    function handlerFiles(e) {
-      const file = e.target.files[0];
-      uploadImg(file)
+    function handlerMainImageUpload(e) {
+      mainImageFile.value = e.target.files[0];
+      uploadImg(mainImageFile.value)
         .then((res) => {
           console.log(res.data);
           handlerClearFiles();
+          productData.value.imageUrl = res.data.data.link;
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    }
+
+    function handlerSubImagesUpload(e) {
+      subImagesFile.value = e.target.files[0];
+      uploadImg(subImagesFile.value)
+        .then((res) => {
+          console.log(res.data);
+          handlerClearFiles();
+          productData.value.imagesUrl.push(res.data.data.link);
         })
         .catch((err) => {
           console.dir(err);
@@ -91,23 +107,31 @@ export default {
       productData.value.imagesUrl = [{ image: "" }];
     }
 
+    watchEffect(() => {
+      productData.value;
+      mainImageFile.value;
+      subImagesFile.value;
+    });
+
     return {
       targetProduct: computed(() => store.targetProduct),
       handlerModalControl,
       isOpenModal: computed(() => store.isOpenModal),
       productData,
-      handlerProductEdit,
-      handlerFiles,
+      handlerProductCreate,
       handlerCreateFileInput,
       handlerResetFormInput,
-      uploadFile,
+      mainImageFile,
+      handlerMainImageUpload,
+      subImagesFile,
+      handlerSubImagesUpload,
     };
   },
 };
 </script>
 
 <template>
-  <form class="p-4 space-y-4 container">
+  <form class="p-4 space-y-4 container" @submit.prevent="handlerProductCreate">
     <div class="flex space-between gap-4">
       <div class="flex-auto">
         <label for="productName" class="block mb-4">產品名稱</label>
@@ -117,6 +141,7 @@ export default {
           name="productName"
           class="rounded w-full"
           v-model="productData.title"
+          required
         />
       </div>
       <div class="flex-auto">
@@ -127,6 +152,7 @@ export default {
           name="productContent"
           class="rounded w-full"
           v-model="productData.content"
+          required
         />
       </div>
       <div class="flex-1">
@@ -134,6 +160,7 @@ export default {
         <select
           class="rounded w-full"
           id="productCategory"
+          required
           v-model="productData.category"
         >
           <option value="測試分類">測試分類</option>
@@ -155,8 +182,8 @@ export default {
               accept="image/*"
               name="productMainImage"
               class="rounded w-full"
-              ref="uploadFile"
-              @change="handlerFiles"
+              ref="mainImageFile"
+              @change="handlerMainImageUpload"
             />
           </div>
           <img
@@ -174,17 +201,18 @@ export default {
         class="flex-auto py-2 px-4 max-w-max bg-lime-500 text-white hover:bg-lime-700 transition duration-300 rounded-md"
         @click="handlerCreateFileInput"
       >
-        新增圖片
+        新增附屬圖片
       </button>
       <ul class="flex flex-wrap justify-between gap-2">
         <li
           class="flex-auto"
-          v-for="(image, idx) in productData.imagesUrl"
-          :key="image + idx"
+          v-for="(item, idx) in productData.imagesUrl"
+          :key="item + idx"
         >
           <img
             class="max-h-48 object-cover flex-auto"
-            v-if="image !== undefined"
+            v-if="item !== undefined"
+            :src="item?.image"
             alt="附屬圖片"
           />
           <label for="productImages" class="block mb-4">產品附屬圖片</label>
@@ -194,7 +222,7 @@ export default {
             id="productImages"
             name="productImages"
             class="rounded"
-            multiple
+            @click="handlerSubImagesUpload"
           />
         </li>
       </ul>
@@ -214,6 +242,7 @@ export default {
         <select
           class="rounded w-full"
           id="productIsEnable"
+          required
           v-model="productData.is_enabled"
         >
           <option value="0">未啟用</option>
@@ -239,6 +268,7 @@ export default {
           id="productPrice"
           name="productPrice"
           class="rounded w-full"
+          required
           v-model="productData.price"
         />
       </div>
@@ -256,8 +286,7 @@ export default {
     <div class="flex justify-between gap-4">
       <button
         class="flex-auto py-2 bg-teal-500 text-white hover:bg-teal-700 transition duration-300 rounded-md"
-        type="button"
-        @click="handlerProductEdit"
+        type="submit"
       >
         新增產品
       </button>
