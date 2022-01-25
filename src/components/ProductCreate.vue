@@ -171,7 +171,7 @@ export default {
     <div class="flex space-between items-center gap-4">
       <button
         type="button"
-        class="flex-auto py-2 px-4 bg-lime-500 text-white hover:bg-lime-700 transition duration-300 rounded-md"
+        class="flex-auto py-2 px-4 max-w-max bg-lime-500 text-white hover:bg-lime-700 transition duration-300 rounded-md"
         @click="handlerCreateFileInput"
       >
         新增圖片
@@ -182,7 +182,11 @@ export default {
           v-for="(image, idx) in productData.imagesUrl"
           :key="image + idx"
         >
-          <img class="max-h-48 object-cover flex-auto" alt="附屬圖片" />
+          <img
+            class="max-h-48 object-cover flex-auto"
+            v-if="image !== undefined"
+            alt="附屬圖片"
+          />
           <label for="productImages" class="block mb-4">產品附屬圖片</label>
           <input
             type="file"

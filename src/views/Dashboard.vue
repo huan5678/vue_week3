@@ -13,6 +13,7 @@ export default {
     const store = useStore();
 
     const {
+      handlerCheckLogin,
       handlerIsLogout,
       handlerClearCookie,
       handlerGetCookie,
@@ -43,6 +44,7 @@ export default {
     });
 
     onMounted(() => {
+      handlerCheckLogin();
       handlerAdminGetProducts();
     });
 

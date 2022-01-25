@@ -12,7 +12,7 @@ export default {
 </script>
 <template>
   <div
-    class="border rounded overflow-hidden flex flex-col md:flex-row gap-2 justify-between mb-4"
+    class="rounded overflow-hidden flex flex-col md:flex-row gap-2 justify-between p-4"
   >
     <img
       class="max-h-[300px]"
@@ -39,7 +39,7 @@ export default {
       </ul>
     </div>
   </div>
-  <div class="px-2 flex gap-4">
+  <div class="p-4 flex gap-4">
     <img
       v-for="img in targetProduct.imagesUrl"
       :key="img"

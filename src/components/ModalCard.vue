@@ -22,9 +22,9 @@ export default {
 
 <template>
   <section
-    class="bg-white rounded-md shadow-md p-4 transition-all duration-500 ease-in-out translate-y-16"
+    class="bg-white rounded-md shadow-md transition-all duration-500 ease-in-out translate-y-16 overflow-hidden"
   >
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center bg-stone-700 text-white p-4">
       <h1 class="text-2xl font-medium pl-4">
         產品 -
         {{
@@ -39,7 +39,7 @@ export default {
       </h1>
       <button
         type="button"
-        class="text-rose-500 p-4 hover:text-rose-700"
+        class="text-stone-50 p-4 transition-all duration-200 ease-in-out hover:text-stone-100 hover:scale-125"
         @click="handlerModalControl"
       >
         <svg

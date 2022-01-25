@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { useRouter } from "vue-router";
 import Api from "../api";
 
 export const useStore = defineStore("main", {
@@ -10,6 +11,7 @@ export const useStore = defineStore("main", {
     const selectFunctionType = ref("");
     const targetProduct = ref({});
     const adminProductList = ref([]);
+    const router = useRouter();
 
     const api_path = import.meta.env.VITE_API_PATH;
 
@@ -23,6 +25,18 @@ export const useStore = defineStore("main", {
 
     function handlerIsLogout() {
       isAuthenticated.value = false;
+    }
+
+    function handlerCheckLogin() {
+      Api({ method: "post", url: `api/user/check`, token: tokenStore.value })
+        .then((res) => {
+          router.push("dashboard");
+        })
+        .catch((err) => {
+          router.push("/login");
+          isAuthenticated.value = false;
+          console.dir(err);
+        });
     }
 
     function handlerGetCookie(name) {
@@ -66,6 +80,7 @@ export const useStore = defineStore("main", {
       handlerSetToken,
       handlerIsLogout,
       handlerIsLogin,
+      handlerCheckLogin,
       handlerGetCookie,
       handlerClearCookie,
       handlerModalControl,

@@ -2,30 +2,20 @@ import axios from "axios";
 
 const baseUrl = "https://vue3-course-api.hexschool.io/v2/";
 
-export function Api({ method, url, data, token }) {
+export function Api({ method, url, data = null, token }) {
   let baseURL = `${baseUrl}${url}`;
 
   axios.defaults.headers.common["Authorization"] = token;
 
-  switch (method) {
-    case "get":
-      return axios.get(baseURL);
-    case "post":
-      return axios.post(baseURL, data);
-    case "put":
-      return axios.put(baseURL, data);
-    case "delete":
-      return axios.delete(baseURL, data);
-    default:
-      return axios.get(baseURL);
-  }
+  return axios[method](baseURL, data);
 }
 
 export default Api;
 
 const imgurUrl = "https://api.imgur.com/3/";
 
-const clientId = import.meta.env.VITE_IMGUR_CLIENT_ID;
+const imgurClientSecret = import.meta.env.VITE_IMGUR_CLIENT_SECRET;
+const imgurClientID = import.meta.env.VITE_IMGUR_CLIENT_ID;
 
 export const uploadImg = (file) => {
   const formData = new FormData();
@@ -33,8 +23,9 @@ export const uploadImg = (file) => {
 
   return axios.post(`${imgurUrl}upload`, formData, {
     headers: {
-      Authorization: `Client-ID ${clientId}`,
-      "Content-Type": "multipart/form-data",
+      // Authorization: `Bearer ${imgurClientSecret}`,
+      // "Content-Type": "multipart/form-data",
+      Authorization: `Client-ID ${imgurClientID}`,
     },
   });
 };
@@ -42,7 +33,7 @@ export const uploadImg = (file) => {
 export const getImg = (id) => {
   return axios.get(`${imgurUrl}image/${id}`, {
     headers: {
-      Authorization: `Client-ID ${clientId}`,
+      Authorization: `Bearer ${clientSecret}`,
     },
   });
 };
