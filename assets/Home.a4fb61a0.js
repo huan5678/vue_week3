@@ -1,0 +1,1 @@
+import{u as a}from"./index.1e2c0e7a.js";import{u as r,f as u}from"./vendor.2cafc8ac.js";const i={setup(){const o=a(),{handlerIsLogin:s,handlerGetCookie:t}=o,e=r(),n=t("token");u(()=>{n&&s(),o.isAuthenticated?e.push("/dashboard"):e.push("/login")})}};export{i as default};
