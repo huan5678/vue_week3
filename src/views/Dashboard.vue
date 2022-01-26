@@ -59,7 +59,7 @@ export default {
   <div class="flex justify-end items-center p-6 bg-stone-50 gap-4">
     <h2 class="text-xl">管理者登出</h2>
     <button
-      class="rounded px-6 py-2 bg-rose-500 text-white hover:bg-rose-600 transition duration-300"
+      class="rounded px-6 py-2 bg-danger-500 text-white hover:bg-danger-600 transition duration-300"
       @click="handlerLogout()"
     >
       登出

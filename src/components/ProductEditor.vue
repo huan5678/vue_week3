@@ -189,14 +189,14 @@ export default {
     </div>
     <div class="flex justify-between gap-4">
       <button
-        class="flex-auto py-2 bg-teal-500 text-white hover:bg-teal-700 transition duration-300 rounded-md"
+        class="flex-auto py-2 bg-secondary-500 text-white hover:bg-secondary-700 transition duration-300 rounded-md"
         type="button"
         @click="handlerProductEdit"
       >
         送出修改
       </button>
       <button
-        class="flex-auto py-2 bg-orange-500 text-white hover:bg-orange-700 transition duration-300 rounded-md"
+        class="flex-auto py-2 bg-danger-500 text-white hover:bg-danger-700 transition duration-300 rounded-md"
         @click="handlerModalControl"
         type="button"
       >

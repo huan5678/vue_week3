@@ -22,7 +22,7 @@ export default {
     <div class="p-4 flex-1 space-y-8">
       <h2 class="font-bold text-xl mb-2">
         {{ targetProduct.title }}
-        <span class="px-2 py-1 ml-2 rounded text-sm bg-blue-500 text-white">
+        <span class="px-2 py-1 ml-2 rounded text-sm bg-primary-400 text-white">
           {{ targetProduct.category }}
         </span>
       </h2>

@@ -82,7 +82,7 @@ export default {
             name="userName"
             placeholder="請輸入帳號Email"
             v-model.trim="userName"
-            class="p-2 rounded border w-full bg-gray-50 invalid:text-blue-600 invalid:border-blue-600 focus:text-blue-600 text-blue-800"
+            class="p-2 rounded border w-full bg-gray-50 invalid:text-primary-600 invalid:border-primary-600 focus:ring-primary-500 focus:text-primary-600 text-primary-800"
           />
         </div>
         <div>
@@ -90,14 +90,14 @@ export default {
           <input
             id="userPassword"
             type="password"
-            class="p-2 rounded border w-full bg-gray-50 invalid:text-blue-600 invalid:border-blue-600 focus:text-blue-600 text-blue-800"
+            class="p-2 rounded border w-full bg-gray-50 invalid:text-primary-600 invalid:border-primary-600 focus:ring-primary-500 focus:text-primary-600 text-primary-800"
             v-model="userPassword"
             placeholder="請輸入密碼"
           />
         </div>
         <button
           type="submit"
-          class="w-full bg-blue-500 text-white rounded-lg py-4 w-100 transition duration-300 hover:bg-blue-600"
+          class="w-full bg-primary-500 text-white rounded-lg py-4 w-100 transition duration-300 hover:bg-primary-600"
         >
           登入
         </button>
@@ -111,7 +111,7 @@ export default {
           <h1 class="text-2xl font-medium pl-4">登入失敗</h1>
           <button
             type="button"
-            class="text-rose-500 p-4 hover:text-rose-700"
+            class="text-danger-500 p-4 hover:text-warning-700"
             @click="handlerModalControl"
           >
             <svg

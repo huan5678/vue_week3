@@ -58,7 +58,7 @@ export default {
             {{ item.price }}
           </td>
           <td
-            class="py-2 whitespace-nowrap text-green-700 text-center"
+            class="py-2 whitespace-nowrap text-primary-400 text-center"
             v-if="item.is_enabled === 1"
           >
             啟用
@@ -69,7 +69,7 @@ export default {
           <td class="py-2 text-center whitespace-nowrap">
             <button
               type="button"
-              class="text-white bg-blue-500 rounded px-3 py-2 hover:bg-blue-600 transition duration-200"
+              class="text-white bg-primary-500 rounded px-3 py-2 hover:bg-primary-600 transition duration-200"
               @click="handlerClickControl('getDetail', item)"
             >
               查看細節
@@ -78,7 +78,7 @@ export default {
           <td class="py-2 text-center whitespace-nowrap">
             <button
               type="button"
-              class="text-white bg-cyan-500 rounded px-3 py-2 hover:bg-cyan-600 transition duration-200"
+              class="text-white bg-secondary-500 rounded px-3 py-2 hover:bg-secondary-600 transition duration-200"
               @click="handlerClickControl('productEdit', item)"
             >
               修改內容
@@ -87,7 +87,7 @@ export default {
           <td class="py-2 text-center whitespace-nowrap">
             <button
               type="button"
-              class="text-white bg-rose-500 rounded px-3 py-2 hover:bg-rose-600 transition duration-200"
+              class="text-white bg-danger-500 rounded px-3 py-2 hover:bg-danger-600 transition duration-200"
               @click="handlerClickControl('productDelete', item)"
             >
               刪除品項
@@ -100,7 +100,7 @@ export default {
       <p>目前有{{ Object.keys(adminProductList).length }}項產品</p>
       <button
         type="button"
-        class="text-white bg-indigo-500 rounded px-3 py-2 hover:bg-indigo-600 transition duration-200"
+        class="text-white bg-warning-500 rounded px-3 py-2 hover:bg-warning-600 transition duration-200"
         @click="handlerClickControl('productCreate')"
       >
         新增品項

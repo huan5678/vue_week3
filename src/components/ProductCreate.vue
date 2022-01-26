@@ -17,21 +17,13 @@ export default {
       content: "",
       is_enabled: "",
       imageUrl: "",
-      imagesUrl: [
-        {
-          image: "",
-        },
-      ],
+      imagesUrl: [""],
     });
 
     function handlerProductCreate() {
-      productData.value.price =
-        0 && (productData.value.price = productData.value.origin_price);
-      productData.value.origin_price =
-        0 && (productData.value.origin_price = productData.value.price);
       const data = {
         method: "post",
-        url: `api/${store.api_path}/admin/product/${productData.value.id}`,
+        url: `api/${store.api_path}/admin/product`,
         token: store.tokenStore,
         data: {
           data: {
@@ -66,16 +58,11 @@ export default {
 
     const subImagesFile = ref("subImagesFile");
 
-    function handlerClearFiles() {
-      mainImageFile.value = "";
-    }
-
     function handlerMainImageUpload(e) {
       mainImageFile.value = e.target.files[0];
       uploadImg(mainImageFile.value)
         .then((res) => {
           console.log(res.data);
-          handlerClearFiles();
           productData.value.imageUrl = res.data.data.link;
         })
         .catch((err) => {
@@ -88,7 +75,6 @@ export default {
       uploadImg(subImagesFile.value)
         .then((res) => {
           console.log(res.data);
-          handlerClearFiles();
           productData.value.imagesUrl.push(res.data.data.link);
         })
         .catch((err) => {
@@ -96,15 +82,9 @@ export default {
         });
     }
 
-    function handlerCreateFileInput() {
-      productData.value.imagesUrl.push({
-        image: "",
-      });
-    }
-
     function handlerResetFormInput() {
       handlerModalControl();
-      productData.value.imagesUrl = [{ image: "" }];
+      productData.value.imagesUrl = [""];
     }
 
     watchEffect(() => {
@@ -119,7 +99,6 @@ export default {
       isOpenModal: computed(() => store.isOpenModal),
       productData,
       handlerProductCreate,
-      handlerCreateFileInput,
       handlerResetFormInput,
       mainImageFile,
       handlerMainImageUpload,
@@ -195,38 +174,31 @@ export default {
         </div>
       </div>
     </div>
-    <div class="flex space-between items-center gap-4">
-      <button
-        type="button"
-        class="flex-auto py-2 px-4 max-w-max bg-lime-500 text-white hover:bg-lime-700 transition duration-300 rounded-md"
-        @click="handlerCreateFileInput"
+    <ul class="py-2">
+      <div>
+        <label for="productImages" class="block mb-4">產品附屬圖片</label>
+        <input
+          type="file"
+          accept="image/*"
+          id="productImages"
+          name="productImages"
+          class="rounded"
+          @change="handlerSubImagesUpload"
+        />
+      </div>
+      <li
+        class="flex justify-between gap-2"
+        v-for="(item, idx) in productData.imagesUrl"
+        :key="item + idx"
       >
-        新增附屬圖片
-      </button>
-      <ul class="flex flex-wrap justify-between gap-2">
-        <li
-          class="flex-auto"
-          v-for="(item, idx) in productData.imagesUrl"
-          :key="item + idx"
-        >
-          <img
-            class="max-h-48 object-cover flex-auto"
-            v-if="item !== undefined"
-            :src="item?.image"
-            alt="附屬圖片"
-          />
-          <label for="productImages" class="block mb-4">產品附屬圖片</label>
-          <input
-            type="file"
-            accept="image/*"
-            id="productImages"
-            name="productImages"
-            class="rounded"
-            @click="handlerSubImagesUpload"
-          />
-        </li>
-      </ul>
-    </div>
+        <img
+          class="max-h-48 object-cover flex-auto"
+          v-if="item !== ''"
+          :src="item"
+          alt="附屬圖片"
+        />
+      </li>
+    </ul>
     <div class="">
       <label for="productDescription" class="block mb-4">產品描述</label>
       <textarea
@@ -285,13 +257,13 @@ export default {
     </div>
     <div class="flex justify-between gap-4">
       <button
-        class="flex-auto py-2 bg-teal-500 text-white hover:bg-teal-700 transition duration-300 rounded-md"
+        class="flex-auto py-2 bg-secondary-500 text-white hover:bg-secondary-700 transition duration-300 rounded-md"
         type="submit"
       >
         新增產品
       </button>
       <button
-        class="flex-auto py-2 bg-orange-500 text-white hover:bg-orange-700 transition duration-300 rounded-md"
+        class="flex-auto py-2 bg-danger-500 text-white hover:bg-danger-700 transition duration-300 rounded-md"
         @click="handlerResetFormInput"
         type="reset"
       >
