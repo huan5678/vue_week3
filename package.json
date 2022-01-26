@@ -1,6 +1,7 @@
 {
   "name": "vue-week3",
   "version": "0.0.1",
+  "homepage": "https://huan5678.github.io/vue-week3",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
