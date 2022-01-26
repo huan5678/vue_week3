@@ -44,13 +44,14 @@ export default {
         .then((res) => {
           console.log(res.data);
           alert(res.data.message);
+          // 關閉modal
           handlerModalControl();
+          // 推完手動再取一次新的product/all
           handlerAdminGetProducts();
         })
         .catch((err) => {
           console.log(err);
           alert(err.response.data.message);
-          handlerModalControl();
         });
     }
 
@@ -59,7 +60,9 @@ export default {
     const subImagesFile = ref("subImagesFile");
 
     function handlerMainImageUpload(e) {
+      // 取得input file的檔案
       mainImageFile.value = e.target.files[0];
+      // post到imgurl 取回圖片連結
       uploadImg(mainImageFile.value)
         .then((res) => {
           console.log(res.data);
@@ -72,6 +75,7 @@ export default {
 
     function handlerSubImagesUpload(e) {
       subImagesFile.value = e.target.files[0];
+      // 相同post到imgurl 取連結並push到圖片陣列
       uploadImg(subImagesFile.value)
         .then((res) => {
           console.log(res.data);
@@ -84,6 +88,8 @@ export default {
 
     function handlerResetFormInput() {
       handlerModalControl();
+      // 手動清空圖片的資料
+      productData.value.imageUrl = "";
       productData.value.imagesUrl = [""];
     }
 

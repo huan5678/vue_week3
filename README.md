@@ -1,7 +1,6 @@
-# Vue 3 + Vite
+# CRUD 頁面
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+第三週同學可多練習 Vue.js 的各項語法及指令，目標以串接 API 完成一頁式的產品新增、刪除、修改的頁面。
 
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- 可以新增、編輯、刪除商品
+- 商品啟用、關閉可以使用不同的顏色標示

@@ -44,7 +44,7 @@ export default {
           res.data.token && router.push("/dashboard");
         })
         .catch((err) => {
-          console.dir(err);
+          // console.dir(err);
           loginErrorMessage.value = err.response.data.message;
           handlerModalControl();
         });
