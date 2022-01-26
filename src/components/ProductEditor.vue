@@ -123,8 +123,8 @@ export default {
           >
             <option value="0">未啟用</option>
             <option value="1">啟用</option>
-            <option value="3">未上架</option>
-            <option value="4">已下架</option>
+            <option value="2">未上架</option>
+            <option value="3">已下架</option>
           </select>
         </div>
         <div class="w-1/2 pr-2">

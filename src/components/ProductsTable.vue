@@ -59,13 +59,29 @@ export default {
           </td>
           <td
             class="py-2 whitespace-nowrap text-primary-400 text-center"
-            v-if="item.is_enabled === 1"
+            v-if="item.is_enabled == 1"
           >
             啟用
           </td>
-          <td class="py-2 whitespace-nowrap text-gray-400 text-center" v-else>
+          <td
+            class="py-2 whitespace-nowrap text-gray-400 text-center"
+            v-else-if="item.is_enabled == 0"
+          >
             未啟用
           </td>
+          <td
+            class="py-2 whitespace-nowrap text-warning-600 text-center"
+            v-else-if="item.is_enabled == 2"
+          >
+            未上架
+          </td>
+          <td
+            class="py-2 whitespace-nowrap text-danger-700 text-center"
+            v-if="item.is_enabled == 3"
+          >
+            已下架
+          </td>
+
           <td class="py-2 text-center whitespace-nowrap">
             <button
               type="button"

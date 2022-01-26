@@ -65,8 +65,8 @@ export default {
       // post到imgurl 取回圖片連結
       uploadImg(mainImageFile.value)
         .then((res) => {
-          console.log(res?.data);
-          // productData.value.imageUrl = res.data.data.link;
+          console.log(res.data);
+          productData.value.imageUrl = res.data.data.link;
         })
         .catch((err) => {
           console.dir(err);
@@ -176,7 +176,7 @@ export default {
               id="productMainImage"
               accept="image/*"
               name="productMainImage"
-              class="rounded w-full"
+              class="rounded block w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-accent-100 file:text-accent-700 hover:file:bg-accent-300"
               ref="mainImageFile"
               @change="handlerMainImageUpload"
             />
@@ -190,25 +190,25 @@ export default {
         </div>
       </div>
     </div>
-    <ul class="py-2">
-      <div>
-        <label for="productImages" class="block mb-4">產品附屬圖片</label>
-        <input
-          type="file"
-          accept="image/*"
-          id="productImages"
-          name="productImages"
-          class="rounded"
-          @change="handlerSubImagesUpload"
-        />
-      </div>
+    <div>
+      <label for="productImages" class="block mb-4">產品附屬圖片</label>
+      <input
+        type="file"
+        accept="image/*"
+        id="productImages"
+        name="productImages"
+        class="rounded block w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-secondary-100 file:text-secondary-700 hover:file:bg-secondary-300"
+        @change="handlerSubImagesUpload"
+      />
+    </div>
+    <ul class="flex justify-between gap-2">
       <li
-        class="flex justify-between gap-2"
+        class="flex-auto max-w-xs"
         v-for="(item, idx) in productData.imagesUrl"
         :key="item + idx"
       >
         <img
-          class="max-h-48 object-cover flex-auto"
+          class="object-cover max-h-64 w-max"
           v-if="item !== ''"
           :src="item"
           alt="附屬圖片"
@@ -235,8 +235,8 @@ export default {
         >
           <option value="0">未啟用</option>
           <option value="1">啟用</option>
-          <option value="3">未上架</option>
-          <option value="4">已下架</option>
+          <option value="2">未上架</option>
+          <option value="3">已下架</option>
         </select>
       </div>
       <div class="flex-auto">
