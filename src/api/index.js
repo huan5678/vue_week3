@@ -5,35 +5,40 @@ const baseUrl = "https://vue3-course-api.hexschool.io/v2/";
 export function Api({ method, url, data = null, token }) {
   let baseURL = `${baseUrl}${url}`;
 
-  axios.defaults.headers.common["Authorization"] = token;
+  const requestConfig = {
+    method,
+    url: baseURL,
+    data,
+    headers: {
+      Authorization: token,
+    },
+  };
 
-  return axios[method](baseURL, data);
+  return axios(requestConfig);
 }
 
 export default Api;
 
 const imgurUrl = "https://api.imgur.com/3/";
 
-const imgurClientSecret = import.meta.env.VITE_IMGUR_CLIENT_SECRET;
+const imgurAccessToken = import.meta.env.VITE_IMGUR_ACCESS_TOKEN;
 const imgurClientID = import.meta.env.VITE_IMGUR_CLIENT_ID;
+
+const album = "qJlhWSN";
 
 export const uploadImg = (file) => {
   const formData = new FormData();
   formData.append("image", file);
+  formData.append("album", album);
 
-  return axios.post(`${imgurUrl}image`, formData, {
+  const requestConfig = {
+    method: "post",
+    url: `${imgurUrl}image`,
     headers: {
-      // Authorization: `Bearer ${imgurClientSecret}`,
-      // "Content-Type": "multipart/form-data",
-      Authorization: `Client-ID ${imgurClientID}`,
+      Authorization: `Bearer ${imgurAccessToken}`,
     },
-  });
-};
+    data: formData,
+  };
 
-export const getImg = (id) => {
-  return axios.get(`${imgurUrl}image/${id}`, {
-    headers: {
-      Authorization: `Bearer ${clientSecret}`,
-    },
-  });
+  return axios(requestConfig);
 };

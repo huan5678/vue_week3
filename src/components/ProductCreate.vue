@@ -17,7 +17,7 @@ export default {
       content: "",
       is_enabled: "",
       imageUrl: "",
-      imagesUrl: [""],
+      imagesUrl: [],
     });
 
     function handlerProductCreate() {
@@ -65,8 +65,8 @@ export default {
       // post到imgurl 取回圖片連結
       uploadImg(mainImageFile.value)
         .then((res) => {
-          console.log(res.data);
-          productData.value.imageUrl = res.data.data.link;
+          console.log(res?.data);
+          // productData.value.imageUrl = res.data.data.link;
         })
         .catch((err) => {
           console.dir(err);
@@ -88,9 +88,19 @@ export default {
 
     function handlerResetFormInput() {
       handlerModalControl();
-      // 手動清空圖片的資料
-      productData.value.imageUrl = "";
-      productData.value.imagesUrl = [""];
+      // 手動清空form資料
+      productData.value = {
+        title: "",
+        category: "",
+        origin_price: 0,
+        price: 0,
+        unit: "",
+        description: "",
+        content: "",
+        is_enabled: "",
+        imageUrl: "",
+        imagesUrl: [],
+      };
     }
 
     watchEffect(() => {
